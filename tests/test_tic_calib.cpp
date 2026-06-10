@@ -10,7 +10,11 @@
 
 int main() {
 	// Point at a dir with no wtrained.bin so init fails gracefully (no GPU touched).
+#ifdef _WIN32
+	_putenv_s("SINEW_TIC_DIR", "/nonexistent-sinew-tic-dir");  // MSVC has no setenv
+#else
 	setenv("SINEW_TIC_DIR", "/nonexistent-sinew-tic-dir", 1);
+#endif
 
 	Quat dev = {1.f, 0.f, 0.f, 0.f};
 	Quat out = {0.f, 0.f, 0.f, 0.f};
